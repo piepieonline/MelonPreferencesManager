@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net35</TargetFramework>
+        <TargetFramework>net6</TargetFramework>
         <OutputType>Library</OutputType>
         <RootNamespace>MelonPrefManager</RootNamespace>
         <LangVersion>10.0</LangVersion>
@@ -49,11 +49,15 @@
         </Reference>
     </ItemGroup>
     <ItemGroup Condition="'$(Configuration)' == 'Release_IL2CPP'">
-        <PackageReference Include="UniverseLib.IL2CPP.Unhollower" Version="1.5.1" />
-        <Reference Include="UnhollowerBaseLib">
-            <HintPath>..\lib\UnhollowerBaseLib.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
+		<Reference Include="UniverseLib.ML.IL2CPP.Interop">
+			<HintPath>..\lib\UniverseLib.ML.IL2CPP.Interop.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.Common">
+			<HintPath>..\lib\Il2CppInterop.Common.dll</HintPath>
+		</Reference>
+		<Reference Include="Il2CppInterop.Runtime">
+			<HintPath>..\lib\Il2CppInterop.Runtime.dll</HintPath>
+		</Reference>
         <Reference Include="Il2Cppmscorlib">
             <HintPath>..\lib\unhollowed\Il2Cppmscorlib.dll</HintPath>
             <Private>False</Private>
@@ -83,13 +87,4 @@
             <Private>False</Private>
         </Reference>
     </ItemGroup>
-    <Target Name="DeleteFileIL2CPP" AfterTargets="Build" Condition="'$(Configuration)' == 'Release_IL2CPP'">
-        <Delete Files="$(TargetDir)MelonPrefManager.IL2CPP.pdb" />
-    </Target>
-    <Target Name="DeleteFileMono" AfterTargets="Build" Condition="'$(Configuration)' == 'Release_Mono'">
-        <Delete Files="$(TargetDir)MelonPrefManager.Mono.pdb" />
-    </Target>
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="copy &quot;$(TargetPath)&quot; &quot;D:\OneDrive\Games\Storm Chasers\Mods\$(TargetName)$(TargetExt)&quot;" />
-    </Target>
 </Project>
